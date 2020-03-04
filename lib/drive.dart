@@ -23,14 +23,16 @@ class GoogleDrive {
           ClientId(_clientID, _clientSecret), _scopes, (url) {
         launch(url);
       });
-
+      await storage.saveCredentials(authClient.credentials.accessToken,
+          authClient.credentials.refreshToken);
       return authClient;
     } else {
+      print(credentials["expiry"]);
       return authenticatedClient(
           http.Client(),
           AccessCredentials(
               AccessToken(credentials['type'], credentials['data'],
-                  DateTime.parse(credentials['expiry'])),
+                  DateTime.tryParse(credentials['expiry'])),
               credentials['refreshToken'],
               _scopes));
     }
@@ -39,7 +41,7 @@ class GoogleDrive {
   Future upload(File file) async {
     var client = await getHttpClient();
     var drive = ga.DriveApi(client);
-
+    print("Uploading file");
     var response = await drive.files.create(
         ga.File()..name = p.basename(file.absolute.path),
         uploadMedia: ga.Media(file.openRead(), file.lengthSync()));
