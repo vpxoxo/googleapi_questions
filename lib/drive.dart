@@ -6,10 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:url_launcher/url_launcher.dart';
 
-const _clientID =
-    '1063086851250-cqqsu0laj63c01c7o3rk8e9rdu3m213s.apps.googleusercontent.com';
+const _clientID = 'CLIENT-ID';
 
-const _clientSecret = 'WqI6hjhEo5wdbNTjGZ3PO';
+const _clientSecret = 'SECRET';
 
 const _scopes = [ga.DriveApi.DriveFileScope];
 
